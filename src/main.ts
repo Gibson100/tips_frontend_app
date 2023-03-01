@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
+// @ts-ignore: Object is possibly 'null'.
+import VueVirtualScroller from 'vue-virtual-scroller';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -20,13 +22,27 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+
 /* Theme variables */
 import './theme/variables.css';
 
+import './theme/variables.scss';
+
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+
+import mitt from 'mitt';
+const emitter = mitt();
+
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
+  .use(IonicVue, {
+    mode: 'md'
+  })
+  .use(router)
+  .use(VueVirtualScroller)
+  .provide('emitter', emitter);
   
+app.config.globalProperties.emitter = emitter;
+
 router.isReady().then(() => {
   app.mount('#app');
 });

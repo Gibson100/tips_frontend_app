@@ -1,5 +1,7 @@
 {
-  "name": "myApp",
-  "integrations": {},
+  "name": "Betting Tips",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue"
 }
